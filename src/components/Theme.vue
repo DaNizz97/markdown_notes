@@ -27,6 +27,7 @@
 
     <v-content>
       <editor ref="editor" :outline="true" :preview="true" v-model="text"></editor>
+      <Preserver></Preserver>
     </v-content>
 
     <v-footer color="blue-grey" class="white--text" app>
@@ -38,9 +39,10 @@
 </template>
 
 <script>
+    import Preserver from './Preserver'
     import { Editor, Preview } from '../build-entry';
     export default {
-        components: { Editor, Preview },
+        components: { Editor, Preview, Preserver },
         data: () => ({
             drawer: true,
             text: '# Header',
