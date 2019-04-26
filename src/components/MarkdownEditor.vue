@@ -37,7 +37,7 @@
     border-top-right-radius: 0;
   }
   .min-height {
-    min-height: 800px;
+    min-height: 600px;
   }
 
 </style>
@@ -88,7 +88,6 @@
         },
 
         methods: {
-            // Provide a function to focus on the textarea
             focus() {
                 this.$refs.textarea.focus();
             }

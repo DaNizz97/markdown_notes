@@ -16,9 +16,6 @@
             return {
                 text: ''
             };
-        },
-        mounted() {
-            this.$refs.editor.focus();
         }
     };
 </script>
