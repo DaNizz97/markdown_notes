@@ -29,9 +29,12 @@
     "markdown-editor"
   ],
   "dependencies": {
+    "body-parser": "^1.19.0",
     "emoji-mart-vue": "^2.6.6",
+    "expressjs": "^1.0.1",
     "highlight.js": "^9.15.6",
     "marked": "^0.6.2",
+    "mongodb": "^3.2.3",
     "v-click-outside": "^2.1.1",
     "vee-validate": "^2.2.5",
     "vue": "^2.6.6",
