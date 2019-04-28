@@ -29,11 +29,13 @@
       <editor ref="editor"
               :outline="true"
               :preview="true"
-              v-model="openedDocument.body"></editor>
-
+              v-model="openedDocument.body"
+      ></editor>
       <Preserver v-bind:title="openedDocument.title"
                  v-bind:user="openedDocument.user"
       ></Preserver>
+
+      <v-btn depressed color="primary" @click="createEmptyDocument()">New...</v-btn>
     </v-content>
 
     <v-footer color="blue-grey" class="white--text" app>
@@ -47,7 +49,9 @@
 <script>
     import Preserver from './Preserver';
     import {Editor, Preview} from '../build-entry';
-    import axios from 'axios';
+    import {APIService} from '../util/APIService'
+
+    const apiService = new APIService();
 
     export default {
         components: {Editor, Preview, Preserver},
@@ -58,6 +62,7 @@
                 posts: [],
                 errorz: [],
                 openedDocument: {},
+                isDocumentNew: true
             }
         },
 
@@ -70,21 +75,26 @@
         },
 
         created() {
-            axios
-                .get('http://localhost:3000/docs')
+            apiService.getDocs()
                 .then(response => {
                     this.posts = response.data
-                })
-                .catch(e => {
-                    this.errorz.push(e)
                 });
+
+            this.createEmptyDocument();
+            console.log(this.openedDocument)
         },
 
 
         methods: {
             openDocument: function (post) {
+                this.isDocumentNew = false;
                 this.openedDocument = post;
             },
+
+            createEmptyDocument: function () {
+                this.isDocumentNew = true;
+                this.openedDocument = {title: 'New Document', user: 'User', body: '# Start typing here'}
+            }
         }
     }
 </script>
