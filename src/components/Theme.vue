@@ -14,49 +14,77 @@
 
     <v-navigation-drawer v-model="drawer" fixed app>
       <v-list two-line subheader>
-        <v-subheader>General</v-subheader>
+        <v-subheader>All documents</v-subheader>
 
         <Preview
-        v-for="post in posts"
-        v-bind:key="post.id"
-        v-bind:title="post.title"
+            v-for="post in posts"
+            v-bind:key="post.id"
+            v-bind:post="post"
+            v-on:openDocument="openDocument"
         ></Preview>
-
       </v-list>
     </v-navigation-drawer>
 
     <v-content>
-      <editor ref="editor" :outline="true" :preview="true" v-model="text"></editor>
-      <Preserver></Preserver>
+      <editor ref="editor"
+              :outline="true"
+              :preview="true"
+              v-model="openedDocument.body"></editor>
+
+      <Preserver v-bind:title="openedDocument.title"
+                 v-bind:user="openedDocument.user"
+      ></Preserver>
     </v-content>
 
     <v-footer color="blue-grey" class="white--text" app>
-      <span>Vuetify</span>
+      <span>Daniil Nizovkin</span>
       <v-spacer></v-spacer>
-      <span>&copy; 2019  </span>
+      <span>&copy; 2019</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-    import Preserver from './Preserver'
-    import { Editor, Preview } from '../build-entry';
+    import Preserver from './Preserver';
+    import {Editor, Preview} from '../build-entry';
+    import axios from 'axios';
+
     export default {
-        components: { Editor, Preview, Preserver },
-        data: () => ({
-            drawer: true,
-            text: '# Header',
-            posts: [
-                { id: 1, title: 'title_1' },
-                { id: 2, title: 'title 2' },
-                { id: 3, title: 'title 3' }
-            ]
-        }),
+        components: {Editor, Preview, Preserver},
+        data: function () {
+            return {
+                drawer: true,
+                text: '# Header',
+                posts: [],
+                errorz: [],
+                openedDocument: {},
+            }
+        },
+
         props: {
             source: String
         },
+
         mounted() {
             this.$refs.editor.focus();
+        },
+
+        created() {
+            axios
+                .get('http://localhost:3000/docs')
+                .then(response => {
+                    this.posts = response.data
+                })
+                .catch(e => {
+                    this.errorz.push(e)
+                });
+        },
+
+
+        methods: {
+            openDocument: function (post) {
+                this.openedDocument = post;
+            },
         }
     }
 </script>

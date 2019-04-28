@@ -37,7 +37,7 @@
     border-top-right-radius: 0;
   }
   .min-height {
-    min-height: 600px;
+    min-height: 300px;
   }
 
 </style>
@@ -71,7 +71,6 @@
                 type: Boolean,
                 default: false
             },
-            // Outline and icon default color
             color: {
                 type: String,
                 default: undefined

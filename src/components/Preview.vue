@@ -9,13 +9,13 @@
           <v-card color="cyan darken-2" class="white--text">
             <v-card-title primary-title>
               <div>
-                <div class="headline">{{ title }}</div>
-                <span>Listen to your favorite artists and albums whenever and wherever, online and offline.</span>
+                <div class="headline">{{ post.title }}</div>
+                <span>Created by {{ post.user }}.</span>
               </div>
             </v-card-title>
             <v-divider light></v-divider>
             <v-card-actions>
-              <v-btn flat dark>Open document</v-btn>
+              <v-btn flat dark v-on:click="$emit('openDocument', post)">Open document</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -27,7 +27,9 @@
 <script>
     export default {
         name: 'Preview',
-        props: ['title']
+        props: {
+            post: {}
+        }
     }
 </script>
 
