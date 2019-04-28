@@ -1,10 +1,12 @@
 var express = require('express');
 var app = express();
+var cors = require('cors')
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 var db;
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/docs', function (req, res) {
     db.collection('docs').find().toArray(function (err, docs) {

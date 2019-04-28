@@ -29,7 +29,9 @@
     "markdown-editor"
   ],
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "emoji-mart-vue": "^2.6.6",
     "expressjs": "^1.0.1",
     "highlight.js": "^9.15.6",
