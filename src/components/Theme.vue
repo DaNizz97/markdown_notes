@@ -10,6 +10,8 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Document Editor</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn flat color="white" @click="createEmptyDocument()">Create New Document</v-btn>
+
     </v-toolbar>
 
     <v-navigation-drawer v-model="drawer" fixed app>
@@ -31,11 +33,14 @@
               :preview="true"
               v-model="openedDocument.body"
       ></editor>
-      <Preserver v-bind:title="openedDocument.title"
-                 v-bind:user="openedDocument.user"
+      <Preserver
+          :post="openedDocument"
+          :is-post-new="isDocumentNew"
+          v-on:appendDocument="appendDocument"
+          v-on:updateDocument="updateDocument"
       ></Preserver>
 
-      <v-btn depressed color="primary" @click="createEmptyDocument()">New...</v-btn>
+      <v-btn v-if="!isDocumentNew" depressed color="primary" @click="deleteDocument()">Delete</v-btn>
     </v-content>
 
     <v-footer color="blue-grey" class="white--text" app>
@@ -81,7 +86,6 @@
                 });
 
             this.createEmptyDocument();
-            console.log(this.openedDocument)
         },
 
 
@@ -94,6 +98,24 @@
             createEmptyDocument: function () {
                 this.isDocumentNew = true;
                 this.openedDocument = {title: 'New Document', user: 'User', body: '# Start typing here'}
+            },
+
+            deleteDocument() {
+                apiService.deleteDoc(this.openedDocument._id)
+                    .then(response => {
+                        this.posts.splice(this.posts.indexOf(this.posts.find(docs => docs._id === this.openedDocument._id)), 1);
+                        this.createEmptyDocument()
+                    })
+            },
+            appendDocument(addedDocument) {
+                this.openedDocument = addedDocument;
+                this.isDocumentNew = false;
+                this.posts.push(this.openedDocument)
+            },
+
+            updateDocument(updatedDocument) {
+                this.openedDocument = updatedDocument;
+                this.posts[this.posts.indexOf(this.posts.find(doc => doc._id === this.openedDocument._id))] = this.openedDocument
             }
         }
     }

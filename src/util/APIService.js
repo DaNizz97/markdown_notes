@@ -23,12 +23,12 @@ export class APIService {
     }
 
     createDoc(doc) {
-        const url = `${API_URL}/docs/`;
+        const url = `${API_URL}/docs`;
         return axios.post(url, doc);
     }
 
-    updateTodo(doc) {
-        const url = `${API_URL}/api/todos/${doc._id}`;
+    updateDoc(doc) {
+        const url = `${API_URL}/docs/${doc._id}`;
         return axios.put(url, doc);
     }
 }

@@ -39,7 +39,7 @@ app.post('/docs', function (req, res) {
 });
 
 app.put('/docs/:id', function (req, res) {
-    var obj = { $set: req.body };
+    var obj = {$set: {"title": req.body.title, "user": req.body.user, "body": req.body.body}};
     db.collection('docs').updateOne({_id: ObjectID(req.params.id)}, obj, function (err, result) {
         if (err) {
             console.log(err);

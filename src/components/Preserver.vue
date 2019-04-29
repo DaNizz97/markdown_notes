@@ -7,7 +7,7 @@
             md4
         >
           <v-text-field
-              v-bind:title="title"
+              v-bind:title="post.title"
               v-model="docName"
               v-validate="'required|max:50'"
               :counter="50"
@@ -18,7 +18,7 @@
           ></v-text-field>
 
           <v-text-field
-              v-bind:title="user"
+              v-bind:title="post.user"
               v-model="username"
               v-validate="'required|max:25'"
               :counter="25"
@@ -28,7 +28,8 @@
               required
           ></v-text-field>
         </v-flex>
-        <v-btn @click="save">Save</v-btn>
+        <v-btn v-if="isPostNew" @click="createDoc">Save</v-btn>
+        <v-btn v-else @click="updateDoc">Save</v-btn>
 
       </v-layout>
     </v-container>
@@ -38,6 +39,8 @@
 <script>
     import Vue from 'vue'
     import VeeValidate from 'vee-validate'
+    import {APIService} from '../util/APIService'
+    let apiService = new APIService();
 
     Vue.use(VeeValidate);
 
@@ -47,14 +50,14 @@
         },
 
         props: {
-            title: String,
-            user: String,
+            post: {},
+            isPostNew: Boolean
         },
 
         data: function () {
             return {
-                docName: this.title,
-                username: this.user,
+                docName: this.post.title,
+                username: this.post.user,
                 dictionary: {
                     custom: {
                         docName: {
@@ -71,11 +74,15 @@
         },
 
         watch: {
-            title: function (val) {
-                this.docName = val;
-            },
-            user: function (val) {
-                this.username = val
+            post: function (val) {
+                this.docName = val.title;
+                this.username = val.user;
+            }
+        },
+
+        computed: {
+            innerPost: function() {
+                return {_id: this.post._id, title: this.docName, user: this.username, body: this.post.body}
             }
         },
 
@@ -84,14 +91,35 @@
         },
 
         methods: {
-            save() {
+            validate(fun) {
                 let booleanPromise = this.$validator.validateAll();
                 booleanPromise.then((bool) => {
                     if (bool) {
-
+                        fun()
                     }
                 })
             },
+
+            updateDoc() {
+                this.validate(() => {
+                    apiService.updateDoc(this.innerPost )
+                        .then(response => {
+                            console.log(response.data);
+                            this.$emit('updateDocument', response.data)
+                        })
+                })
+            },
+            createDoc() {
+                this.validate(() => {
+                    console.log({title: this.docName, user: this.username, body: this.post.body});
+                    apiService.createDoc({title: this.docName, user: this.username, body: this.post.body})
+                        .then(response => {
+                            console.log(response.data);
+                            this.$emit('appendDocument', response.data)
+                        })
+                })
+            }
+
         }
     }
 </script>
