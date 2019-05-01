@@ -3,5 +3,7 @@ module.exports = {
 		output: {
 			libraryExport: 'default'
 		}
-	}
+	},
+	runtimeCompiler: true
+
 }

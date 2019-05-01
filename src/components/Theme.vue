@@ -97,25 +97,28 @@
 
             createEmptyDocument: function () {
                 this.isDocumentNew = true;
-                this.openedDocument = {title: 'New Document', user: 'User', body: '# Start typing here'}
+                this.openedDocument = {title: 'New Document', user: 'User', body: '# Start typing here'};
             },
 
             deleteDocument() {
                 apiService.deleteDoc(this.openedDocument._id)
                     .then(response => {
                         this.posts.splice(this.posts.indexOf(this.posts.find(docs => docs._id === this.openedDocument._id)), 1);
-                        this.createEmptyDocument()
+                        this.createEmptyDocument();
+                        this.$msg('Document is deleted!')
                     })
             },
             appendDocument(addedDocument) {
                 this.openedDocument = addedDocument;
                 this.isDocumentNew = false;
-                this.posts.push(this.openedDocument)
+                this.posts.push(this.openedDocument);
+                this.$msg('Document is saved');
             },
 
             updateDocument(updatedDocument) {
                 this.openedDocument = updatedDocument;
-                this.posts[this.posts.indexOf(this.posts.find(doc => doc._id === this.openedDocument._id))] = this.openedDocument
+                this.posts[this.posts.indexOf(this.posts.find(doc => doc._id === this.openedDocument._id))] = this.openedDocument;
+                this.$msg('Document is saved');
             }
         }
     }
