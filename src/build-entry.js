@@ -1,6 +1,6 @@
 import MarkdownEditor from './components/MarkdownEditor.vue';
-import preview from './components/Preview'
-import complex from './components/Theme'
+import preview from './components/DocumentPreview'
+import complex from './components/MainFrame'
 import marked from './util/marked.js';
 
 export {

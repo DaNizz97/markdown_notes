@@ -6,7 +6,7 @@
     >
       <v-layout row wrap>
         <v-flex>
-          <v-card color="cyan darken-2" class="white--text">
+          <v-card color="blue darken-2" class="white--text">
             <v-card-title primary-title>
               <div>
                 <div class="headline">{{ post.title }}</div>

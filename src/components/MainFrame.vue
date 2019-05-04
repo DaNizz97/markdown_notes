@@ -1,20 +1,20 @@
 <template>
   <v-app id="inspire">
     <v-toolbar
-        color="blue-grey"
+        color="blue"
         dark
         fixed
         app
-        clipped-right
+        clipped-left
     >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Document Editor</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn flat color="white" @click="createEmptyDocument()">Create New Document</v-btn>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
 
     </v-toolbar>
 
-    <v-navigation-drawer v-model="drawer" fixed app>
+    <v-navigation-drawer v-model="drawer" fixed right app>
       <v-list two-line subheader>
         <v-subheader>All documents</v-subheader>
 
@@ -40,10 +40,10 @@
           v-on:updateDocument="updateDocument"
       ></Preserver>
 
-      <v-btn v-if="!isDocumentNew" depressed color="primary" @click="deleteDocument()">Delete</v-btn>
+      <v-btn class="ml-5" v-if="!isDocumentNew" depressed color="primary" @click="deleteDocument()">Delete</v-btn>
     </v-content>
 
-    <v-footer color="blue-grey" class="white--text" app>
+    <v-footer color="blue" class="white--text" app>
       <span>Daniil Nizovkin</span>
       <v-spacer></v-spacer>
       <span>&copy; 2019</span>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-    import Preserver from './Preserver';
+    import Preserver from './SaveForm';
     import {Editor, Preview} from '../build-entry';
     import {APIService} from '../util/APIService'
 

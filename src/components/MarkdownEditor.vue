@@ -4,12 +4,15 @@
 
       <v-flex xs12 :md6="preview" class="pa-3">
         <v-layout column>
-          <v-card class="min-height">
+          <v-card>
             <v-textarea
+                row-size="25"
+                rows="14"
                 solo
                 flat
                 hide-details
                 auto-grow
+                background-color="#fff69e"
                 ref="textarea"
                 :value="value"
                 @input="val => $emit('input', val)"
@@ -19,7 +22,7 @@
       </v-flex>
 
       <v-flex xs12 :md6="preview" class="pa-3">
-          <v-card class="min-height">
+          <v-card min-height="350px" color="#fff69e">
             <v-card-text v-if="mode === 'Rendered'" class="subheading markdown-text" v-html="compiled"/>
             <v-card-text v-else-if="mode === 'Source'" class="subheading">
               {{ compiled }}
@@ -35,9 +38,6 @@
   .v-textarea >>> .v-input__control > .v-input__slot {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-  }
-  .min-height {
-    min-height: 300px;
   }
 
 </style>

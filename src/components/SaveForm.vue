@@ -1,36 +1,46 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <form>
-    <v-container>
-      <v-layout>
+    <v-container fluid fill-height>
+      <v-layout align-center justify-start>
         <v-flex
             xs12
-            md4
+            sm12
+            md5
         >
-          <v-text-field
-              v-bind:title="post.title"
-              v-model="docName"
-              v-validate="'required|max:50'"
-              :counter="50"
-              :error-messages="errors.collect('docName')"
-              label="Document name"
-              data-vv-name="docName"
-              required
-          ></v-text-field>
+          <v-toolbar dark color="blue">
+            <v-toolbar-title>Save document form</v-toolbar-title>
+            <v-spacer></v-spacer>
+                <v-btn v-if="isPostNew" color="primary" @click="createDoc">Save</v-btn>
+                <v-btn v-else color="primary" @click="updateDoc">Save</v-btn>
+          </v-toolbar>
 
-          <v-text-field
-              v-bind:title="post.user"
-              v-model="username"
-              v-validate="'required|max:25'"
-              :counter="25"
-              :error-messages="errors.collect('username')"
-              label="Username"
-              data-vv-name="username"
-              required
-          ></v-text-field>
+          <v-card class="elevation-12">
+            <v-card-text>
+            <v-text-field
+                v-bind:title="post.title"
+                v-model="docName"
+                v-validate="'required|max:50'"
+                :counter="50"
+                :error-messages="errors.collect('docName')"
+                label="Document name"
+                data-vv-name="docName"
+                required
+            ></v-text-field>
+
+            <v-text-field
+                v-bind:title="post.user"
+                v-model="username"
+                v-validate="'required|max:25'"
+                :counter="25"
+                :error-messages="errors.collect('username')"
+                label="Username"
+                data-vv-name="username"
+                required
+            ></v-text-field>
+            </v-card-text>
+
+          </v-card>
         </v-flex>
-        <v-btn v-if="isPostNew" @click="createDoc">Save</v-btn>
-        <v-btn v-else @click="updateDoc">Save</v-btn>
-
       </v-layout>
     </v-container>
   </form>
@@ -40,6 +50,7 @@
     import Vue from 'vue'
     import VeeValidate from 'vee-validate'
     import {APIService} from '../util/APIService'
+
     let apiService = new APIService();
 
     Vue.use(VeeValidate);
@@ -81,7 +92,7 @@
         },
 
         computed: {
-            innerPost: function() {
+            innerPost: function () {
                 return {_id: this.post._id, title: this.docName, user: this.username, body: this.post.body}
             }
         },
@@ -102,7 +113,7 @@
 
             updateDoc() {
                 this.validate(() => {
-                    apiService.updateDoc(this.innerPost )
+                    apiService.updateDoc(this.innerPost)
                         .then(response => {
                             console.log(response.data);
                             this.$emit('updateDocument', response.data)
