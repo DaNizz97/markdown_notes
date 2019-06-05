@@ -22,12 +22,12 @@
       </v-flex>
 
       <v-flex xs12 :md6="preview" class="pa-3">
-          <v-card min-height="350px" color="#fff69e">
-            <v-card-text v-if="mode === 'Rendered'" class="subheading markdown-text" v-html="compiled"/>
-            <v-card-text v-else-if="mode === 'Source'" class="subheading">
-              {{ compiled }}
-            </v-card-text>
-          </v-card>
+        <v-card min-height="350px" color="#fff69e">
+          <v-card-text v-if="mode === 'Rendered'" class="subheading markdown-text" v-html="compiled"/>
+          <v-card-text v-else-if="mode === 'Source'" class="subheading">
+            {{ compiled }}
+          </v-card-text>
+        </v-card>
       </v-flex>
 
     </v-layout>
@@ -45,8 +45,6 @@
 <script>
     import marked from '../util/marked.js';
     import {VContainer, VLayout, VFlex, VCard, VCardText, VTextarea} from 'vuetify/lib';
-    // Styles
-
     import '../style.css';
 
     export default {

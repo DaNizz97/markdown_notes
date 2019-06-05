@@ -10,33 +10,33 @@
           <v-toolbar dark color="blue">
             <v-toolbar-title>Save document form</v-toolbar-title>
             <v-spacer></v-spacer>
-                <v-btn v-if="isPostNew" color="primary" @click="createDoc">Save</v-btn>
-                <v-btn v-else color="primary" @click="updateDoc">Save</v-btn>
+            <v-btn v-if="isPostNew" color="primary" @click="createDoc">Save</v-btn>
+            <v-btn v-else color="primary" @click="updateDoc">Save</v-btn>
           </v-toolbar>
 
           <v-card class="elevation-12">
             <v-card-text>
-            <v-text-field
-                v-bind:title="post.title"
-                v-model="docName"
-                v-validate="'required|max:50'"
-                :counter="50"
-                :error-messages="errors.collect('docName')"
-                label="Document name"
-                data-vv-name="docName"
-                required
-            ></v-text-field>
+              <v-text-field
+                  v-bind:title="post.title"
+                  v-model="docName"
+                  v-validate="'required|max:50'"
+                  :counter="50"
+                  :error-messages="errors.collect('docName')"
+                  label="Document name"
+                  data-vv-name="docName"
+                  required
+              ></v-text-field>
 
-            <v-text-field
-                v-bind:title="post.user"
-                v-model="username"
-                v-validate="'required|max:25'"
-                :counter="25"
-                :error-messages="errors.collect('username')"
-                label="Username"
-                data-vv-name="username"
-                required
-            ></v-text-field>
+              <v-text-field
+                  v-bind:title="post.user"
+                  v-model="username"
+                  v-validate="'required|max:25'"
+                  :counter="25"
+                  :error-messages="errors.collect('username')"
+                  label="Username"
+                  data-vv-name="username"
+                  required
+              ></v-text-field>
             </v-card-text>
 
           </v-card>

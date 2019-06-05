@@ -44,9 +44,9 @@
     </v-content>
 
     <v-footer color="blue" class="white--text" app>
-      <span>Daniil Nizovkin</span>
+      <span class="ml-3">Daniil Nizovkin</span>
       <v-spacer></v-spacer>
-      <span>&copy; 2019</span>
+      <span class="mr-3">&copy; 2019</span>
     </v-footer>
   </v-app>
 </template>
@@ -65,7 +65,6 @@
                 drawer: true,
                 text: '# Header',
                 posts: [],
-                errorz: [],
                 openedDocument: {},
                 isDocumentNew: true
             }
